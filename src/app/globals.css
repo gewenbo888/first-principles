@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --void: #06080f;
+  --axiom: #5b9dff;
+  --spark: #ffb454;
+  --node: #b07cff;
+  --ghost: #e7ecf5;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--void);
+  color: var(--ghost);
+}
+
+body {
+  background-color: #06080f;
+  background-image:
+    radial-gradient(ellipse 1100px 640px at 12% -10%, rgba(91, 157, 255, 0.14), transparent 60%),
+    radial-gradient(ellipse 980px 560px at 92% 2%, rgba(176, 124, 255, 0.10), transparent 62%),
+    radial-gradient(ellipse 1240px 720px at 50% 122%, rgba(255, 180, 84, 0.10), transparent 60%);
+  font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.005em;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: rgba(91, 157, 255, 0.38); color: #f6f8fc; }
+
+.display { font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif; font-weight: 700; letter-spacing: -0.018em; }
+.serif { font-family: "Newsreader", Georgia, ui-serif, serif; }
+.zh { font-family: "Noto Sans SC", sans-serif; font-weight: 500; }
+.zh-serif { font-family: "Noto Serif SC", serif; }
+.label-mono {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  letter-spacing: 0.24em; text-transform: uppercase; font-size: 0.62rem; color: #aecfff;
+}
+.mono { font-family: "JetBrains Mono", ui-monospace, monospace; }
+
+.axiom-text {
+  color: #aecfff;
+  text-shadow: 0 0 24px rgba(91, 157, 255, 0.6), 0 0 70px rgba(59, 118, 224, 0.28);
+}
+.spark-text {
+  color: #ffdca6;
+  text-shadow: 0 0 22px rgba(255, 180, 84, 0.55);
+}
+.node-text {
+  color: #ddc4ff;
+  text-shadow: 0 0 22px rgba(176, 124, 255, 0.5);
+}
+
+/* blueprint instrument panel */
+.holo {
+  background: linear-gradient(155deg, rgba(22, 27, 46, 0.66), rgba(8, 10, 18, 0.92));
+  border: 1px solid rgba(174, 207, 255, 0.12);
+  backdrop-filter: blur(10px);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.holo:hover { border-color: rgba(91, 157, 255, 0.4); box-shadow: 0 0 40px -16px rgba(91, 157, 255, 0.5); }
+
+/* spectrum divider — decompose (blue) → reconstruct (gold) */
+.rule-fp {
+  background: linear-gradient(90deg, transparent, rgba(91,157,255,0.65) 16%, rgba(176,124,255,0.5) 50%, rgba(255,180,84,0.6) 84%, transparent);
+}
+
+/* blueprint grid backdrop */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(174, 207, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(174, 207, 255, 0.05) 1px, transparent 1px);
+  background-size: 46px 46px;
+}
+.grid-bg-fine {
+  background-image:
+    linear-gradient(rgba(174, 207, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(174, 207, 255, 0.04) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* animated dash flow for field lines / connections */
+@keyframes flow { to { stroke-dashoffset: -36; } }
+.flow { stroke-dasharray: 4 8; animation: flow 1.4s linear infinite; }
+
+@keyframes pulseGlow { 0%,100% { opacity: 0.45; } 50% { opacity: 1; } }
+.pulse { animation: pulseGlow 2.4s ease-in-out infinite; }
+
+@keyframes drift { 0% { transform: translateY(0); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0); } }
+.drift { animation: drift 7s ease-in-out infinite; }
+
+@keyframes riseIn { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+.rise-in { animation: riseIn 0.9s cubic-bezier(0.2,0.7,0.2,1) both; }
+.lang-fade { animation: riseIn 0.42s ease both; }
+
+/* scanning ticker */
+@keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+.ticker { animation: ticker 40s linear infinite; }
+
+/* slow rotation for orbital diagrams */
+@keyframes spinslow { to { transform: rotate(360deg); } }
+.spin-slow { animation: spinslow 36s linear infinite; transform-origin: center; }
+
+/* blinking caret */
+@keyframes blink { 0%,49% { opacity: 1; } 50%,100% { opacity: 0; } }
+.caret { animation: blink 1s step-end infinite; }
+
+/* node expand on hover */
+.fp-node { transition: transform 0.25s cubic-bezier(0.2,0.7,0.2,1), filter 0.25s; }
+.fp-node:hover { transform: scale(1.06); filter: brightness(1.15); }
+
+::-webkit-scrollbar { width: 10px; background: #06080f; }
+::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #1a2138, #232c4a); border-radius: 5px; }
+::-webkit-scrollbar-thumb:hover { background: #3b76e0; }
+
+/* print stylesheet for the decomposition report export */
+@media print {
+  body { background: #fff !important; color: #111 !important; }
+  .no-print { display: none !important; }
+  .print-only { display: block !important; }
+}
+.print-only { display: none; }
